@@ -96,11 +96,12 @@ import GHC.Natural (Natural)
 #else
 import Numeric.Natural (Natural)
 #endif
+import GHC.Stack
 
 -- | Lifted version of 'STM.atomically'
 --
 -- @since 0.2.1.0
-atomically :: MonadIO m => STM a -> m a
+atomically :: (MonadIO m, HasCallStack) => STM a -> m a
 atomically = liftIO . STM.atomically
 
 -- | Renamed 'STM.retry' for unqualified export
